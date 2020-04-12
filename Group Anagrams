@@ -1,0 +1,124 @@
+class Solution {
+    
+    List<List<String>> resultList;
+    
+    public List<List<String>> groupAnagrams(String[] strs) {
+     
+        HashMap<Integer,HashMap<Integer,Integer>> wordsGroup = new HashMap<Integer,HashMap<Integer,Integer>>();
+        HashMap<Integer,List<Integer>> ansSet = new HashMap<Integer,List<Integer>>();
+        
+        int wordGroupIndex = 1;
+        
+        for(int index = 0; index < strs.length; index++) {
+            
+            HashMap<Integer,Integer> frequency = new HashMap<Integer,Integer>();
+            int flag = 0;
+            
+            for(int subIndex = 0; subIndex < strs[index].length(); subIndex++)
+            {
+                int ascii = (int) strs[index].charAt(subIndex);
+                int value;
+                
+                if(frequency.containsKey(ascii))
+                {
+                    value = frequency.get(ascii);
+                    value++;
+                    frequency.put(ascii,value);
+                } else {
+                    frequency.put(ascii,1);
+                }
+            }
+            
+                
+                int wordMapIndexxx = 0;
+                
+                for(int key : wordsGroup.keySet())
+                {
+                    Map<Integer,Integer> currFrequency = wordsGroup.get(key);
+                    int currFrequencySize = currFrequency.size();
+                    int frequencySize = frequency.size();
+                    
+                    // Check length of keys in each itr
+                    if(currFrequencySize != frequencySize)
+                    {
+                        continue;
+                    } else {
+                        
+                        int crtCnt = 0;
+                        
+                        for(int freqKey: frequency.keySet())
+                        {
+                            if(!currFrequency.containsKey(freqKey)) {
+                                break;
+                            } else if(frequency.get(freqKey) != currFrequency.get(freqKey)) {
+                                break;
+                            } else {
+                                crtCnt++;
+                            }
+                        }
+                        
+                        if(crtCnt == currFrequencySize)
+                        {
+                            flag = 1;
+                            wordMapIndexxx = key;
+                        }
+                    }
+                    
+                }
+                
+                if(flag == 0)
+                {
+                    wordsGroup.put(wordGroupIndex, frequency);
+                    List<Integer> sVal;
+                    
+                    if(ansSet.containsKey(wordGroupIndex))
+                    {
+                        sVal = ansSet.get(wordGroupIndex);
+                    } else {
+                        sVal = new ArrayList<Integer>();
+                    }
+                    
+                    sVal.add(index);
+                    ansSet.put(wordGroupIndex, sVal);
+                    wordGroupIndex++;
+                } else {
+                    
+                    List<Integer> sVal;
+                    
+                    if(ansSet.containsKey(wordMapIndexxx))
+                    {
+                        sVal = ansSet.get(wordMapIndexxx);
+                    } else {
+                        sVal = new ArrayList<Integer>();
+                    }
+                    
+                    sVal.add(index);
+                    ansSet.put(wordMapIndexxx, sVal);
+                }
+        }
+        
+        resultList = new ArrayList<List<String>>();
+        
+        int finalSize = ansSet.size();
+        
+        for(int finIndex = 1; finIndex <= finalSize; finIndex++)
+        {
+            List<String> wordsSet = new ArrayList<String>();
+            List<Integer> sVal = ansSet.get(finIndex);
+            
+            for(int finnIndex = 0; finnIndex < sVal.size(); finnIndex++)
+            {
+                wordsSet.add(strs[sVal.get(finnIndex)]);
+            }
+            
+            resultList.add(wordsSet);
+            
+        }
+        
+        //System.out.println("Final Grps" + ansSet);
+        //System.out.println("resultList" + resultList);
+     
+        return resultList;
+        
+    }
+}
