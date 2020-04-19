@@ -1,0 +1,42 @@
+class Solution {
+    public int countElements(int[] arr) {
+        
+    int cntOfPairs = 0;
+    int length = arr.length; 
+    
+    HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        
+    for(int index = 0; index < length; index++)
+    {
+        int value = 1;
+        
+        if(hm.containsKey(arr[index])){
+            value = hm.get(arr[index]);
+            value++;
+        }
+        
+        hm.put(arr[index],value);
+        
+    }
+        
+    //System.out.println(hm);
+        
+    for(int key: hm.keySet())
+    {
+        if(hm.containsKey(key+1))
+        {
+            int val1 = hm.get(key);
+            int val2 = hm.get(key+1);
+            
+            cntOfPairs += val1;
+            
+            
+        }
+    }
+       
+    //System.out.println(cntOfPairs);
+    
+    return cntOfPairs;
+        
+    }
+}
