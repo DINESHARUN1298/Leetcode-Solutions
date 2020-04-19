@@ -1,0 +1,35 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        
+        int product = 1;
+        int[] ans = new int[nums.length];
+        int cntOfZeros = 0;
+        
+        for(int index = 0; index < nums.length; index++)
+        {
+            if(nums[index] != 0){
+                product = product * nums[index];    
+            } else {
+                cntOfZeros++;
+            }
+        }
+        
+        if(cntOfZeros >1)
+        {
+            product = 0;
+        }
+        
+        for(int index = 0; index < nums.length; index++)
+        {
+            if(nums[index] != 0 && cntOfZeros > 0){
+                ans[index] = 0;
+            }else if(nums[index] != 0){
+                ans[index] = product/nums[index];
+            } else {
+                ans[index] = product;
+            }
+        }
+        
+        return ans;
+    }
+}
