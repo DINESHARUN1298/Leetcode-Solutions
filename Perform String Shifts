@@ -1,0 +1,29 @@
+class Solution {
+    public String stringShift(String s, int[][] shift) {
+        
+        int len = shift.length, stringLength = s.length();
+        String subStr1 = "", subStr2 = "";
+        
+        for(int index = 0; index < len; index++)
+        {
+            if(shift[index][0] == 0)
+            {
+                subStr1 = s.substring(0,shift[index][1]);
+                subStr2 = s.substring(shift[index][1]);
+                s = subStr2 + subStr1;
+                
+            } else {
+                subStr1 = s.substring(stringLength - shift[index][1]);
+                subStr2 = s.substring(0,stringLength - shift[index][1]);
+                s = subStr1 + subStr2;
+            }
+            
+            System.out.println(s);
+            
+        }
+        
+        return s;
+        
+        
+    }
+}
