@@ -1,0 +1,47 @@
+class Solution {
+    
+    public boolean checkValidString(String s) {
+        
+        int len = s.length();
+        int balance = 0;
+        
+        for(int index = 0; index < len; index++)
+        {
+            char ch = s.charAt(index);
+            
+            if(ch == '(')
+                balance++;
+            else if(ch == ')')
+                balance--;    
+            else
+                balance++;
+            
+            if(balance < 0) {
+                return false;
+            }
+            
+        }
+        
+        balance = 0;
+        
+        for(int index = len - 1; index >= 0; index--)
+        {
+            
+            char ch = s.charAt(index);
+            
+            if(ch == ')')
+                balance++;
+            else if(ch == '(')
+                balance--;    
+            else
+                balance++;
+            
+            if(balance < 0) {
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }
+}
