@@ -1,0 +1,57 @@
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+    
+        String ch = "#";
+        int index, index1 = 0, index2 = 0;
+        int[] arr1 = new int[1001];
+        int[] arr2 = new int[1001];
+        
+        index = S.indexOf(ch);
+        
+        while(index >= 0)
+        {
+            arr1[index1++] = index;
+            index = S.indexOf(ch, index + 1);
+        }
+        
+        index = T.indexOf(ch);
+        
+        while(index >= 0)
+        {
+            arr2[index2++] = index;
+            index = T.indexOf(ch, index + 1);
+        }
+        
+        
+        S = replaceChars(S, index1, arr1);
+        T = replaceChars(T, index2, arr2);
+        
+        S = S.replaceAll("#","");
+        T = T.replaceAll("#","");
+        
+        if(S.equals(T)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public String replaceChars(String S, int index1, int arr1[]) {
+        
+        for(int subIndex = 0; subIndex < index1; subIndex++)
+        {
+            for(int delIndex = arr1[subIndex] - 1; delIndex >= 0; delIndex--)
+            {
+                if(S.charAt(delIndex) != '#')
+                {
+                    S = S.substring(0,delIndex) + "#" + S.substring(delIndex+1);
+                    break;
+                }
+            }
+        }
+        
+        return S;
+        
+    }
+    
+}
