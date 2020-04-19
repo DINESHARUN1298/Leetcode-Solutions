@@ -1,0 +1,42 @@
+class Solution {
+    public boolean isHappy(int n) {
+        
+    Set<Integer> checked = new HashSet<Integer>();
+    int value = 0;
+        
+        while(true) {
+            
+            value = squareDigitsSum(n);
+            
+            if(checked.contains(value))
+            {
+                break;
+            }
+            
+            checked.add(value);
+            n = value;
+            
+            if(value == 1) {
+                return true;
+            }
+            
+        }
+        
+        return false;
+        
+    }
+    
+    public int squareDigitsSum(int N) {
+        
+        int sum = 0;
+        
+        while(N > 0)
+        {
+            sum = sum + ((N%10)*(N%10));
+            N = N/10;
+        }
+        
+        return sum;
+    }
+    
+}
