@@ -1,0 +1,26 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+    
+        ArrayList<Integer> weights = new ArrayList<Integer>();
+        
+        for(int index = 0; index < stones.length; index++)
+        {
+            weights.add(stones[index]);
+        }
+        
+        while(weights.size() > 1)
+        {
+            Collections.sort(weights);
+            
+            int len = weights.size();
+            int newVal = weights.get(len-1) - weights.get(len-2);
+            weights.remove(len-1);
+            weights.remove(len-2);
+            weights.add(newVal);
+            
+        }
+        
+        return weights.get(0);
+        
+    }
+}
