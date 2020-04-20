@@ -1,0 +1,21 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        
+        Map<Integer,Integer> map = new HashMap<>();
+        
+        for(int index = 0; index < nums.length; index++)
+        {
+            map.put(index,nums[index]);
+        }
+        
+        if(map.containsValue(target)) {
+            for(Map.Entry<Integer,Integer> entry : map.entrySet()) {
+                if(entry.getValue().equals(target)) {
+                    return (Integer) entry.getKey();
+                }
+            }    
+        }
+        
+        return -1;
+    }
+}
