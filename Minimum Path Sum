@@ -1,0 +1,43 @@
+class Solution {
+    
+    int[][] cost;
+    
+    public int minCost(int rows, int cols) {
+        
+        int[][] minValues = new int[rows][cols];
+        minValues[0][0] = cost[0][0];
+        
+        for(int index = 1; index < rows; index++)
+        {
+            minValues[index][0] = minValues[index-1][0] + cost[index][0];
+        }
+        
+        for(int index = 1; index < cols; index++)
+        {
+            minValues[0][index] = minValues[0][index-1] + cost[0][index];
+        }
+        
+        for(int rowIndex = 1; rowIndex < rows; rowIndex++)
+        {
+            for(int colIndex = 1; colIndex < cols; colIndex++)
+            {
+                minValues[rowIndex][colIndex] = cost[rowIndex][colIndex] + Math.min(minValues[rowIndex-1][colIndex], minValues[rowIndex][colIndex-1]);
+            }
+        }
+        
+        return minValues[rows-1][cols-1];
+        
+    }
+    
+    public int minPathSum(int[][] grid) {
+        
+        int rows = grid.length;
+        int cols = grid[0].length;
+        
+        cost = grid.clone(); 
+        
+        return minCost(rows,cols);
+        
+        
+    }
+}
