@@ -1,0 +1,30 @@
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        
+        int m = text1.length();
+        int n = text2.length();
+        
+        int LCS[][] = new int[m+1][n+1];
+        int maxResult = 0;
+        
+        for(int rowIndex = 0; rowIndex <= m; rowIndex++)
+        {
+            for(int colIndex = 0; colIndex <= n; colIndex++)
+            {
+                if(colIndex == 0 || rowIndex == 0)
+                {
+                    LCS[rowIndex][colIndex] = 0;
+                } else if(text1.charAt(rowIndex-1) == text2.charAt(colIndex-1))
+                {
+                    LCS[rowIndex][colIndex] = LCS[rowIndex-1][colIndex-1] + 1;
+                    maxResult = Math.max(maxResult,LCS[rowIndex][colIndex]);
+                } else {
+                    LCS[rowIndex][colIndex] = Math.max(LCS[rowIndex][colIndex-1],LCS[rowIndex-1][colIndex]);
+                }
+            }
+        }
+        
+        return maxResult;
+        
+    }
+}
